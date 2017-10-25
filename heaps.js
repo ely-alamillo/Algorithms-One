@@ -1,11 +1,18 @@
-const distanceCities = require('../distance');
+const distanceCities = require('./distance');
 
 let max;
 let flag = true;
 const bestRoutes = [];
+const cities = [
+  {name:"Denver", x:500, y:500},
+  {name:"Salt Lake City", x:300, y:500},
+  {name:"Cheyenne", x:500, y:600},
+  {name:"Santa Fe", x:500, y:350}
+];
+
 const nextElement = (n, set) => {
   if(n === 1) {
-    console.log(set);
+    // console.log(set);
     let distance = 0;
     for (let i = 0; i < set.length; i++) {
       if ( i === set.length - 1) {
@@ -20,9 +27,8 @@ const nextElement = (n, set) => {
     }
     if (distance <= max) {
       set.distance = distance;
-      bestRoutes.push(set)
       max = distance;
-      // console.log('the max is:', max);
+      console.log(`The distance from ${set[0].name} to ${set[1].name} to ${set[2].name} to ${set[3].name} is: ${distance.toFixed(2)}`)
     }
   }
   else {
@@ -44,15 +50,16 @@ const nextElement = (n, set) => {
 }
 
 const countSet = (set) => {
-  console.log(set);
   let n = set.length;
 
+  let newArray = [];
   let array = [];
   set.forEach((each) => {
     array.push(each);
   });
-  nextElement(array.length, array);
-  return bestRoutes;
+  nextElement(array.length, array, newArray);
 }
+
+// countSet(cities);
 
 module.exports = countSet;
